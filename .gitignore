@@ -1,0 +1,32 @@
+# 비밀 키
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# DB, 벡터 DB
+*.sqlite3
+*.db
+chroma_db/
+data/raw/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 내부 문서 (공개 레포에 올리지 않음)
+docs/
