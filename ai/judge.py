@@ -47,7 +47,8 @@ SYSTEM = """너는 청년정책 신청 자격을 판단하는 도우미다.
 5. 사용자 정보와 원문이 명확히 어긋날 때만 unmet으로 한다.
 6. detail은 '~이 필요해요', '~라서 충족해요'처럼 짧고 쉬운 한국어로 쓴다.
 7. documents는 제출 서류 원문을 서류 단위로 나눈다. '공고문 참조'처럼 실제 서류가 없으면 빈 목록.
-8. 입력받은 모든 정책에 대해 policy_id를 그대로 써서 결과를 하나씩 돌려준다."""  # Gemini에게 주는 규칙(프롬프트)입니다
+8. 입력받은 모든 정책에 대해 policy_id를 그대로 써서 결과를 하나씩 돌려준다.
+9. 사용자가 고른 값(학력·취업 상태 등)과 직접 쓴 상황이 서로 다르면(예: 학력은 '대학 재학'인데 상황에는 '졸업했다') unknown으로 하고, detail에 '입력한 학력(대학 재학)과 쓰신 내용(졸업)이 달라요'처럼 어긋난 점을 알려 준다."""  # Gemini에게 주는 규칙(프롬프트)입니다
 
 
 def _policy_block(p: dict) -> str:  # 정책 하나를 프롬프트에 넣을 글로 만드는 함수입니다
@@ -107,11 +108,16 @@ def _merge(p: dict, j: Judgment | None, skipped: bool = False) -> dict:  # 백�
     reasons = list(rule)  # 최종 판단 목록은 백엔드 판단으로 시작합니다
     if j:  # Gemini 판단 결과가 있으면
         for r in j.reasons:  # Gemini가 판단한 조건을 하나씩 보면서
-            same = next((x for x in reasons if x["condition"] == r.condition), None)  # 같은 이름의 조건이 이미 있는지 찾습니다
+            ai = r.model_dump()  # 수정할 수 있게 dict로 바꿉니다
+            if "소득" in ai["condition"]:  # Gemini가 '소득 조건', '소득 기준'처럼 이름을 다르게 붙여도
+                ai["condition"] = "소득"  # 백엔드와 같은 '소득'으로 맞춥니다 (같은 조건이 두 줄로 나오지 않게)
+            same = next((x for x in reasons if x["condition"] == ai["condition"]), None)  # 같은 이름의 조건이 이미 있는지 찾습니다
             if same is None:  # 처음 나온 조건이면 (예: 추가 자격)
-                reasons.append(r.model_dump())  # 그대로 추가합니다
-            elif same["result"] == "unknown" and r.result != "unknown":  # 백엔드는 '모름'이었는데 Gemini가 판단했으면 (예: 소득)
-                same.update(r.model_dump())  # Gemini 판단으로 바꿉니다 (백엔드가 확실히 판단한 건 안 바꿈)
+                reasons.append(ai)  # 그대로 추가합니다
+            elif same["result"] == "unknown" and ai["result"] != "unknown":  # 백엔드는 '모름'이었는데 Gemini가 판단했으면
+                same.update(ai)  # Gemini 판단으로 바꿉니다 (백엔드가 확실히 판단한 건 안 바꿈)
+            elif same["condition"] == "소득" and same["detail"] == "소득 조건 없음" and ai["result"] != "met":  # 데이터엔 '소득 무관'인데 공고문 본문에 소득 기준이 적혀 있으면
+                same.update(ai)  # 본문을 읽은 Gemini 판단을 씁니다 (예: 지원 내용에 '중위소득 60% 이하')
     elif not skipped:  # 물어봤는데 Gemini 판단이 실패해서 없으면
         reasons.append({"condition": "추가 조건", "result": "unknown", "detail": "추가 조건을 자동으로 확인하지 못했어요. 공고문을 확인해 주세요."})  # '신청 가능'으로 잘못 나가지 않게 '확인 필요' 사유를 넣습니다
     if any(r["result"] == "unmet" for r in reasons):  # 하나라도 불충족이 있으면
