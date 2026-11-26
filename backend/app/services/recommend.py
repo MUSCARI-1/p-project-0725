@@ -70,8 +70,7 @@ def recommend(profile: dict, today: date, batch_size: int) -> dict:
         judged = ai_adapter.judge_policies(profile, ai_input)
         for pid in chunk:
             j = judged[pid]
-            if j["eligibility"] == "ineligible":
-                continue
+            # AI가 불가로 판단한 정책도 이유와 함께 응답에 넣는다. 화면에서는 추천 목록과 분리해서 보여준다
             p = policies[pid]
             results.append(
                 {
@@ -93,5 +92,7 @@ def recommend(profile: dict, today: date, batch_size: int) -> dict:
                 }
             )
 
-    # total은 AI 판단 전 후보 수라서 AI가 뺀 정책은 반영되지 않는다
+    # 신청 가능·확인 필요를 앞에, 불가를 뒤에 두고 각 그룹 안에서는 추천 순서를 유지한다
+    results.sort(key=lambda r: r["eligibility"] == "ineligible")
+    # total은 AI 판단 전 후보 수라서 불가로 판단된 정책도 포함된다
     return {"total": len(candidate_ids), "page": page, "size": size, "results": results}

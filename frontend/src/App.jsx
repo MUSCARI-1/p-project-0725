@@ -127,7 +127,7 @@ export default function App() {
           <h2>
             후보 {data.total}건 (페이지 {data.page}, 이 페이지 {data.results.length}건)
           </h2>
-          {data.results.map((r) => (
+          {data.results.filter((r) => r.eligibility !== "ineligible").map((r) => (
             <article key={r.policy_id} style={{ border: "1px solid #ccc", padding: 12, marginBottom: 8 }}>
               <strong>[{ELIGIBILITY[r.eligibility]}]</strong> {r.name}{" "}
               <small>
@@ -146,6 +146,23 @@ export default function App() {
               {openId === r.policy_id && <Detail policyId={r.policy_id} sourceText={r.source_text} />}
             </article>
           ))}
+          {data.results.some((r) => r.eligibility === "ineligible") && (
+            <details style={{ marginBottom: 8 }}>
+              <summary>
+                조건이 안 맞는 정책 {data.results.filter((r) => r.eligibility === "ineligible").length}개 (이유 보기)
+              </summary>
+              {data.results.filter((r) => r.eligibility === "ineligible").map((r) => (
+                <article key={r.policy_id} style={{ border: "1px solid #eee", padding: 12, marginTop: 8, color: "#666" }}>
+                  {r.name} <small>{r.category}</small>
+                  <ul>
+                    {r.reasons.filter((x) => x.result === "unmet").map((x, i) => (
+                      <li key={i}>{RESULT[x.result]} {x.condition}: {x.detail}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </details>
+          )}
           <button disabled={data.page <= 1} onClick={() => submit(null, data.page - 1)}>
             이전
           </button>
