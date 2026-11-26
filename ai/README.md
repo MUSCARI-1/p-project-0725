@@ -17,7 +17,7 @@
    # GEMINI_FALLBACK_MODELS=gemini-3.5-flash  (기본 모델 실패 시 대체, 쉼표로 여러 개)
    # GEMINI_THINKING_LEVEL=low                 (low=빠름, high=신중하지만 느림)
    # GEMINI_TIMEOUT=20                         (이 초를 넘으면 대체 모델로 넘어감)
-   # JUDGE_BATCH_SIZE=5                        (자격 판단 때 한 번에 묶어 보낼 정책 수)
+   # JUDGE_BATCH_SIZE=2                        (자격 판단 때 한 번에 묶어 보낼 정책 수)
    # EMBED_MODEL=models/gemini-embedding-001
    ```
 3. 백엔드를 한 번 실행해서 `backend/local.db`가 있는 상태에서 벡터 DB를 만든다. 끊겨도 다시 실행하면 이어서 한다.

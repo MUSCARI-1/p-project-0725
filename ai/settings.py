@@ -14,7 +14,7 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")  # 답변·판
 GEMINI_FALLBACK_MODELS = [m.strip() for m in os.getenv("GEMINI_FALLBACK_MODELS", "gemini-3.5-flash").split(",") if m.strip()]  # 기본 모델이 바쁠 때(503) 대신 쓸 모델들입니다 (쉼표로 여러 개)
 GEMINI_THINKING_LEVEL = os.getenv("GEMINI_THINKING_LEVEL", "low")  # 답하기 전에 얼마나 오래 생각할지입니다 (low=빠름, high=느리지만 신중)
 GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "20"))  # Gemini 응답을 최대 몇 초까지 기다릴지입니다 (넘으면 대체 모델로 넘어감)
-JUDGE_BATCH_SIZE = int(os.getenv("JUDGE_BATCH_SIZE", "5"))  # 자격 판단 때 정책 몇 개를 한 번에 묶어 물어볼지입니다 (작을수록 빠르지만 요청 수가 늘어 무료 한도를 빨리 씀)
+JUDGE_BATCH_SIZE = int(os.getenv("JUDGE_BATCH_SIZE", "2"))  # 자격 판단 때 정책 몇 개를 한 번에 묶어 물어볼지입니다 (작을수록 빠르지만 요청 수가 늘어 무료 한도를 빨리 씀)
 EMBED_MODEL = os.getenv("EMBED_MODEL", "models/gemini-embedding-001")  # 문장을 숫자(벡터)로 바꿀 임베딩 모델 이름입니다
 
 CHROMA_DIR = str(ROOT_DIR / "chroma_db")  # 벡터 DB 파일을 저장할 폴더입니다 (깃허브에는 안 올라감)
