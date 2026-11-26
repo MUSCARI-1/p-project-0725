@@ -4,6 +4,14 @@ import { chat, getMeta, getPolicy, getRegions, recommend } from "./api.js";
 
 const ELIGIBILITY = { eligible: "신청 가능", check_needed: "확인 필요", ineligible: "불가" };
 const RESULT = { met: "✅", unmet: "❌", unknown: "❔" };
+// 영어 값을 화면에 한글로 보여주기 위한 표 (테스트 화면용)
+const LABEL = {
+  marital_status: "결혼", job_status: "취업 상태", education: "학력",
+  single: "미혼", married: "기혼",
+  employed: "재직자", unemployed: "미취업자", self_employed: "자영업자", startup: "(예비)창업자", etc: "기타",
+  high_school: "고졸", university_enrolled: "대학 재학(휴학 포함)", university_graduated: "대학 졸업",
+  open: "모집 중", always: "상시 모집", closed: "마감",
+};
 
 export default function App() {
   const [meta, setMeta] = useState(null);
@@ -22,6 +30,8 @@ export default function App() {
   const [data, setData] = useState(null);
   const [openId, setOpenId] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // 추천 요청 중인지 (테스트용 표시)
+  const [elapsed, setElapsed] = useState(null); // 마지막 추천에 걸린 시간(초)
   const resultsRef = useRef(null);
 
   useEffect(() => {
@@ -52,21 +62,26 @@ export default function App() {
       page,
       size: 10,
     };
+    setLoading(true);
+    const started = performance.now();
     try {
       setData(await recommend(profile));
       resultsRef.current?.scrollIntoView();
     } catch (err) {
       setError(err.message);
+    } finally {
+      setElapsed(((performance.now() - started) / 1000).toFixed(1));
+      setLoading(false);
     }
   }
 
   const select = (key) => (
     <label>
-      {key}{" "}
+      {LABEL[key] ?? key}{" "}
       <select value={form[key]} onChange={update(key)}>
         <option value="">(모름)</option>
         {meta?.enums[key].map((v) => (
-          <option key={v}>{v}</option>
+          <option key={v} value={v}>{LABEL[v] ?? v}</option>
         ))}
       </select>
     </label>
@@ -117,7 +132,8 @@ export default function App() {
           ))}
         </div>
         <textarea rows={2} value={form.message} onChange={update("message")} />
-        <button>추천 받기</button>
+        <button disabled={loading}>{loading ? "추천 중..." : "추천 받기"}</button>
+        {elapsed && !loading && <small>마지막 추천 {elapsed}초 걸림</small>}
       </form>
 
       {error && <p style={{ color: "crimson" }}>{error}</p>}
@@ -131,7 +147,7 @@ export default function App() {
             <article key={r.policy_id} style={{ border: "1px solid #ccc", padding: 12, marginBottom: 8 }}>
               <strong>[{ELIGIBILITY[r.eligibility]}]</strong> {r.name}{" "}
               <small>
-                {r.category} · {r.apply_status} · {r.apply_period}
+                {r.category} · {LABEL[r.apply_status] ?? r.apply_status} · {r.apply_period}
               </small>
               <ul>
                 {r.reasons.map((x, i) => (
