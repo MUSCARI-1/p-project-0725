@@ -75,8 +75,14 @@ def judge_policies(profile: dict, policies: list[dict]) -> dict[str, dict]:
 
 def answer_question(question: str, policy: dict | None, history: list[dict]) -> dict:
     result = ai.answer_question(question, policy, history) or {}
+    # name(정책 이름), url(공고 링크)은 화면에서 근거를 하이퍼링크로 보여주기 위해 함께 넘긴다
     sources = [
-        {"policy_id": str(s.get("policy_id", "")), "text": str(s.get("text", ""))}
+        {
+            "policy_id": str(s.get("policy_id", "")),
+            "text": str(s.get("text", "")),
+            "name": str(s.get("name") or ""),
+            "url": str(s.get("url") or ""),
+        }
         for s in result.get("sources") or []
         if isinstance(s, dict)
     ]

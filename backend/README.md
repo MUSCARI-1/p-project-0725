@@ -102,7 +102,7 @@ tests/
 }
 ```
 
-응답은 `{ "answer": "...", "sources": [{ "policy_id": "...", "text": "참고한 원문" }] }` 형식이다. `policy_id`는 선택이고, `history`는 최대 20개까지 받는다.
+응답은 `{ "answer": "...", "sources": [{ "policy_id": "...", "text": "참고한 원문", "name": "정책 이름", "url": "공고 링크" }] }` 형식이다. `url`이 없으면 빈 문자열이다. `policy_id`는 선택이고, `history`는 최대 20개까지 받는다.
 
 ## 데이터 메모 (온통청년 실제 데이터 확인 결과)
 

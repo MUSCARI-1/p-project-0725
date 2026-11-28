@@ -248,7 +248,9 @@ function Detail({ policyId, sourceText }) {
         <p key={i}>{h.role === "user" ? "🙋" : "🤖"} {h.content}</p>
       ))}
       {sources.map((s, i) => (
-        <p key={i} style={{ fontSize: 12, color: "#555" }}>📄 참고 원문: {s.text}</p>
+        <p key={i} style={{ fontSize: 12, color: "#555" }}>
+          📄 {s.url ? <a href={s.url} target="_blank" rel="noreferrer">{s.name || "공고 보기"}</a> : s.name} 참고 원문: {s.text}
+        </p>
       ))}
       <form onSubmit={ask} style={{ display: "flex", gap: 4 }}>
         <input style={{ flex: 1 }} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="예: 알바 소득도 포함돼요?" />
