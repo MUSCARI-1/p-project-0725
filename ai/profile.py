@@ -22,7 +22,7 @@ def describe(profile: dict) -> str:  # 사용자 조건을 Gemini가 읽을 문�
 
     income = profile.get("annual_income")  # 연소득 값을 꺼냅니다 (없으면 None)
     lines = [  # 사용자 정보를 한 줄씩 만듭니다
-        f"- 나이: 만 {v(profile.get('age'))}세 (생년월일 {v(profile.get('birth_date'))})",  # 나이와 생년월일
+        f"- 나이: 만 {v(profile.get('age'))}세",  # 나이만 보냅니다 (판단에 생년월일까지는 필요 없어서 개인정보를 줄이려고 뺌)
         f"- 거주지: {v(profile.get('region_name'))}",  # 사는 지역
         f"- 결혼: {_labels(profile.get('marital_status'), MARITAL)}",  # 결혼 여부 (한글로)
         f"- 취업 상태: {_labels(profile.get('job_status'), JOB)}",  # 취업 상태 (한글로, 여러 개 가능)
