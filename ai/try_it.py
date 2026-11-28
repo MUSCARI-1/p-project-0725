@@ -34,3 +34,8 @@ if __name__ == "__main__":  # 'python -m ai.try_it'로 직접 실행했을 때�
     print("\n[3] answer_question")  # 3번 테스트 제목
     print(json.dumps(answer_question("월세 지원 받으려면 뭐가 필요해요?", None, []), ensure_ascii=False, indent=2))  # 챗봇 답변을 출력합니다
     print(f"  ⏱ {time.time() - t:.1f}초")  # 3번에 걸린 시간을 출력합니다
+
+    t = time.time()  # 4번 시작 시각을 기록합니다
+    print("\n[4] answer_question (애매한 질문 → 되묻기)")  # 4번 테스트 제목
+    print(json.dumps(answer_question("알바 돼요?", None, []), ensure_ascii=False, indent=2))  # 뜻이 애매한 질문에 되묻는지 확인합니다
+    print(f"  ⏱ {time.time() - t:.1f}초")  # 4번에 걸린 시간을 출력합니다

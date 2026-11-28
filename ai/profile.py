@@ -4,7 +4,7 @@ MARITAL = {"single": "미혼", "married": "기혼"}  # 결혼 여부 영어 값�
 JOB = {"employed": "재직자", "unemployed": "미취업자", "self_employed": "자영업자", "startup": "(예비)창업자", "etc": "기타"}  # 취업 상태 영어 값을 한글로 바꾸는 표입니다
 EDU = {  # 학력 영어 값을 한글로 바꾸는 표입니다
     "high_school": "고졸",
-    "university_enrolled": "대학 재학",
+    "university_enrolled": "대학 재학 또는 휴학",  # 화면의 '대학 재학(휴학 포함)'과 같은 뜻 (휴학생이 '휴학 중'이라고 써도 어긋난다고 보지 않게)
     "university_graduated": "대학 졸업",
     "etc": "기타",
 }

@@ -26,15 +26,18 @@
    python -m ai.build_index              # 전체
    ```
 4. 백엔드 없이 함수만 확인: `python -m ai.try_it`
+5. 정확도 측정: `python -m ai.eval.run`
 
 ## 파일 구성
 
 | 파일 | 역할 |
 |---|---|
-| service.py | 백엔드가 부르는 함수 3개 |
+| service.py | 백엔드가 부르는 함수 4개 (정렬, 판단, 챗봇, 조건 뽑기) |
 | vector_store.py / build_index.py | 정책 임베딩 → Chroma 저장, 의미 순 정렬 |
 | judge.py | 글로 된 조건(추가 자격·소득·참여 제한) 판단, 제출 서류 정리 |
-| chat.py | 정책 원문 기반 챗봇 |
+| chat.py | 정책 원문 기반 챗봇 (애매한 질문은 되묻기, 근거에 정책 이름·링크) |
+| understand.py | 상황 문장에서 학력·취업·결혼·관심 분야·핵심 단어 뽑기 (`understand_message`, 응답의 `understood`용) |
+| eval/ | 페르소나 테스트: `python -m ai.eval.run` → 판단·조건 뽑기·정렬 정확도를 `eval/results/`에 저장 |
 | texts.py / profile.py | 프롬프트용 문장 만들기 |
 | settings.py / llm.py | 설정, Gemini 모델 |
 

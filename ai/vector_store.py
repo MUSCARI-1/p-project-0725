@@ -82,15 +82,25 @@ def rank_ids(query: str, candidate_ids: list[str]) -> list[str]:  # 후보 정�
     if not query.strip() or not candidate_ids:  # 상황 문장이 없거나 후보가 없으면
         return list(candidate_ids)  # 정렬하지 않고 그대로 돌려줍니다
     store = get_store()  # 벡터 DB를 엽니다
+    vector = get_embeddings().embed_query(query)  # 문장을 숫자(벡터)로 딱 한 번만 바꿉니다 (예전엔 500개 묶음마다 다시 바꿔서 느렸음)
     scored: list[tuple[float, str]] = []  # (거리 점수, 정책 번호)를 모아 둘 목록입니다
     for i in range(0, len(candidate_ids), 500):  # 후보가 많을 수 있어서 500개씩 나눠 검색합니다
         chunk = candidate_ids[i : i + 500]  # 이번에 검색할 후보 500개입니다
-        hits = store.similarity_search_with_score(query, k=len(chunk), filter={"policy_id": {"$in": chunk}})  # 후보 안에서만 문장과 비슷한 정책을 찾는 코드입니다
-        scored += [(score, doc.metadata["policy_id"]) for doc, score in hits]  # 찾은 결과의 점수와 번호를 모읍니다
+        res = store._collection.query(  # 정책 본문은 빼고 '번호와 거리'만 받아 오는 빠른 검색입니다 (순서만 필요해서)
+            query_embeddings=[vector], n_results=len(chunk), where={"policy_id": {"$in": chunk}}, include=["distances"]  # 미리 바꿔 둔 벡터로 후보 안에서만 찾고, 거리만 받습니다
+        )
+        scored += list(zip(res["distances"][0], res["ids"][0]))  # (거리, 정책 번호)를 모읍니다 (벡터 DB의 id가 정책 번호와 같음)
     scored.sort(key=lambda x: x[0])  # 거리가 가까운(점수가 작은) 순서로 정렬합니다
     ranked = [pid for _, pid in scored]  # 정렬된 정책 번호만 뽑습니다
     seen = set(ranked)  # 이미 정렬된 번호를 기록합니다
     return ranked + [pid for pid in candidate_ids if pid not in seen]  # 벡터 DB에 없던 후보는 맨 뒤에 붙여서 돌려줍니다
+
+
+def names_by_ids(ids: list[str]) -> dict[str, str]:  # 정책 번호 목록으로 {번호: 이름}을 돌려주는 함수입니다 (정렬 보정용)
+    if not ids:  # 번호가 없으면
+        return {}  # 빈 결과
+    got = get_store().get(ids=list(ids), include=["metadatas"])  # 벡터 DB에 저장해 둔 이름을 바로 꺼냅니다 (DB 조회보다 빠름)
+    return {pid: (m or {}).get("name", "") for pid, m in zip(got["ids"], got["metadatas"])}  # {번호: 이름}으로 정리합니다
 
 
 def search(query: str, k: int = 3) -> list[str]:  # 챗봇용: 질문과 비슷한 정책 번호를 k개 찾는 함수입니다
