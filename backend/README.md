@@ -66,7 +66,8 @@ tests/
 
 응답의 `results[]` 필드는 `policy_id, name, category, sub_category, summary, support, eligibility, reasons, documents, apply_method, apply_status, apply_period, apply_url, ref_url, source_text`다.
 
-- `total`은 AI 판단 **전** 후보 수다. AI가 `ineligible`로 뺀 정책은 반영되지 않아서, 한 페이지 결과가 `size`보다 적을 수 있다.
+- `eligibility`는 `eligible`(신청 가능) / `check_needed`(확인 필요) / `ineligible`(불가)다. 불가 정책도 이유(`reasons`)와 함께 응답에 포함하고, 결과 배열의 맨 뒤에 둔다. 화면에서는 추천 목록과 분리해 "조건이 안 맞는 정책"으로 접어서 보여준다.
+- `total`은 AI 판단 **전** 후보 수다.
 - 마감 정책(`aplyPrdSeCd=0057003`이거나 신청 종료일이 지난 정책)은 DB 조회 단계에서 제외한다.
 
 ### GET /api/regions
@@ -101,7 +102,7 @@ tests/
 }
 ```
 
-응답은 `{ "answer": "...", "sources": [{ "policy_id": "...", "text": "참고한 원문" }] }` 형식이다. `policy_id`는 선택이고, `history`는 최대 20개까지 받는다.
+응답은 `{ "answer": "...", "sources": [{ "policy_id": "...", "text": "참고한 원문", "name": "정책 이름", "url": "공고 링크" }] }` 형식이다. `url`이 없으면 빈 문자열이다. `policy_id`는 선택이고, `history`는 최대 20개까지 받는다.
 
 ## 데이터 메모 (온통청년 실제 데이터 확인 결과)
 

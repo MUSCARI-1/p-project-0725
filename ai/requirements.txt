@@ -1,0 +1,8 @@
+# AI 모듈 전용 (백엔드 requirements와 같은 가상환경에 설치)
+python-dotenv
+SQLAlchemy>=2.0
+langchain-core>=0.3
+langchain-google-genai>=2.1
+langchain-chroma>=0.2
+chromadb>=1.0
+pydantic>=2.0

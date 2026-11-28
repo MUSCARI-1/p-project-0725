@@ -1,0 +1,557 @@
+{
+  "judge": [
+    {
+      "id": "J01",
+      "policy": "K-Art 청년 창작자 지원",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "K-Art 창작자 지원은 대학교 재학생·휴학생 제외",
+      "reasons": [
+        "met 추가 자격: 그림 그리는 작가로 활동하고 있어서 예술 및 창작 조건을 충족해요",
+        "unmet 참여 제한: 대학교 재학생은 참여 제한 대상이라서 충족하지 못해요"
+      ]
+    },
+    {
+      "id": "J02",
+      "policy": "K-Art 청년 창작자 지원",
+      "expected": [
+        "check_needed",
+        "eligible"
+      ],
+      "got": "eligible",
+      "ok": true,
+      "danger": false,
+      "why": "졸업생 예술가라 제외 대상 아님",
+      "reasons": [
+        "met 추가 자격: 일러스트 작가로 활동하고 있어서 예술 및 창작 분야 조건을 충족해요",
+        "met 참여 제한: 대학교 재학생이나 휴학생이 아니라서 참여 제한 대상에 해당하지 않아요"
+      ]
+    },
+    {
+      "id": "J03",
+      "policy": "청년도전 지원사업",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "청년도전 지원사업은 재학생 참여 불가",
+      "reasons": [
+        "unmet 참여 제한: 재학생은 참여할 수 없어요.",
+        "unknown 추가 신청 자격: 6개월 이상 취업 및 구직활동 이력이 있는지 알 수 없어요."
+      ]
+    },
+    {
+      "id": "J04",
+      "policy": "청년도전 지원사업",
+      "expected": [
+        "check_needed",
+        "eligible"
+      ],
+      "got": "eligible",
+      "ok": true,
+      "danger": false,
+      "why": "졸업생, 6개월 이상 구직활동 없음 → 대상에 가까움",
+      "reasons": [
+        "met 추가 신청 자격: 1년 넘게 구직활동을 하지 않아 추가 신청 자격을 충족해요",
+        "met 참여 제한 대상: 대학을 졸업하여 재학생이 아니라 참여 제한 대상이 아니에요"
+      ]
+    },
+    {
+      "id": "J05",
+      "policy": "청년 전월세 임차보증금 대출이자 지원",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "무주택 청년만 대상인데 본인 명의 주택 보유",
+      "reasons": [
+        "unmet 무주택: 제 명의의 아파트에 거주하고 있어 무주택 요건을 충족하지 않아요",
+        "met 소득: 연소득이 4천만 원으로 6천만 원 이하라서 충족해요",
+        "unknown 전세보증금: 전세보증금에 대한 정보가 없어 확인할 수 없어요"
+      ]
+    },
+    {
+      "id": "J06",
+      "policy": "청년 전월세 임차보증금 대출이자 지원",
+      "expected": [
+        "check_needed",
+        "eligible"
+      ],
+      "got": "check_needed",
+      "ok": true,
+      "danger": false,
+      "why": "무주택·소득 6천 이하 충족, 보증금 2.5억 이하 여부는 모름",
+      "reasons": [
+        "met 무주택: 집이 없어서 무주택 조건을 충족해요",
+        "unknown 전세보증금 2.5억원 이하 주거용 주택: 전세보증금 금액을 알 수 없어요",
+        "met 소득: 연소득이 3000만 원이라서 기준을 충족해요"
+      ]
+    },
+    {
+      "id": "J07",
+      "policy": "청년 전월세 임차보증금 대출이자 지원",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "연소득 7천만 원으로 6천만 원 기준 초과",
+      "reasons": [
+        "met 무주택: 집 없이 전세 살고 있어 무주택 조건에 맞아요",
+        "unknown 전세보증금: 전세보증금 금액이 얼마인지 알 수 없어요",
+        "unmet 소득: 연소득이 7,000만 원이라 6,000만 원 이하 기준을 초과해요"
+      ]
+    },
+    {
+      "id": "J08",
+      "policy": "(서해구) 인천시 청년월세 지원사업",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "부모와 함께 거주하면 제외",
+      "reasons": [
+        "unknown 소득: 연소득과 재산 정보가 없어 소득 및 재산 조건을 확인할 수 없어요",
+        "unmet 참여 제한 대상: 부모님과 함께 거주하고 있어 참여 제한 대상에 해당해요"
+      ]
+    },
+    {
+      "id": "J09",
+      "policy": "(서해구) 인천시 청년월세 지원사업",
+      "expected": [
+        "check_needed"
+      ],
+      "got": "check_needed",
+      "ok": true,
+      "danger": false,
+      "why": "독립 거주는 맞지만 소득·재산 기준은 모름",
+      "reasons": [
+        "unknown 소득: 본인 연소득을 알 수 없어 소득 조건을 확인할 수 없어요",
+        "unknown 재산 조건: 재산 정보를 알 수 없어 재산 조건을 확인할 수 없어요",
+        "unknown 주택 전입신고: 전입신고 여부를 알 수 없어 주택 조건을 확인할 수 없어요"
+      ]
+    },
+    {
+      "id": "J10",
+      "policy": "신혼(예비)부부 건강검진비 지원",
+      "expected": [
+        "check_needed",
+        "eligible"
+      ],
+      "got": "eligible",
+      "ok": true,
+      "danger": false,
+      "why": "혼인 1년 차로 혼인신고 3년 이내 충족",
+      "reasons": [
+        "met 혼인여부: 작년에 결혼하여 혼인신고 3년 이내 조건을 충족해요"
+      ]
+    },
+    {
+      "id": "J11",
+      "policy": "신혼(예비)부부 건강검진비 지원",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "예비부부·신혼부부가 아님",
+      "reasons": [
+        "unmet 혼인여부: 예비부부가 아니어서 충족하지 않아요"
+      ]
+    },
+    {
+      "id": "J12",
+      "policy": "곡성군 청년 월세 지원사업",
+      "expected": [
+        "ineligible"
+      ],
+      "got": "ineligible",
+      "ok": true,
+      "danger": false,
+      "why": "곡성 월세 지원은 대학생(휴학생 포함) 제외",
+      "reasons": [
+        "unknown 소득: 본인 연소득을 몰라서 소득 조건을 확인할 수 없어요",
+        "unmet 참여 제한 대상: 휴학생은 참여 제한 대상에 해당해서 지원받을 수 없어요",
+        "unknown 추가 신청 자격: 무주택 여부와 임대차계약 체결 위치를 정확히 알 수 없어요"
+      ]
+    },
+    {
+      "id": "J13",
+      "policy": "곡성군 청년 월세 지원사업",
+      "expected": [
+        "check_needed",
+        "eligible"
+      ],
+      "got": "check_needed",
+      "ok": true,
+      "danger": false,
+      "why": "제외 대상 아님, 주거급여·주택 소유 여부 등은 모름",
+      "reasons": [
+        "met 소득: 월 소득이 기준중위소득 150% 이하라서 충족해요",
+        "met 참여 제한(대학생 등): 대학을 졸업하고 재직 중이라 대학생이나 대학원생에 해당하지 않아요",
+        "unknown 참여 제한(주거급여 및 주택 소유 등): 주거급여 수급 여부나 주택 소유 여부를 알 수 없어 확인이 필요해요"
+      ]
+    }
+  ],
+  "rank": [
+    {
+      "id": "R01",
+      "query": "휴학 중이고 알바하는데 월세가 부담돼요",
+      "score": 1.0,
+      "why": "기본 월세 질문",
+      "top": [
+        "✅ 청년월세 한시 특별지원",
+        "✅ 청년 월세 한시 지원",
+        "✅ 청년 월세 지원",
+        "✅ 청년월세지원",
+        "✅ 청년 취업자 주거비 지원사업"
+      ]
+    },
+    {
+      "id": "R02",
+      "query": "집세 도와주는 거 있어요?",
+      "score": 0.8,
+      "why": "'월세'라는 단어 없이 의미로 찾는지",
+      "top": [
+        "✅ 청년월세 한시 특별지원",
+        "✅ 청년 월세 한시 지원",
+        "✅ 청년 월세 지원",
+        "✅ 세종형 청년 주거 임대료 지원（월세지원）",
+        "❌ 전세보증금반환보증 보증료 지원"
+      ]
+    },
+    {
+      "id": "R03",
+      "query": "졸업하고 취업 준비 중인데 학원비가 부담돼요",
+      "score": 0.8,
+      "why": "취업 준비 비용 (학자금대출은 정답 아님)",
+      "top": [
+        "✅ 청년 취업 준비 지원사업",
+        "❌ 취업 후 상환 학자금대출_생활비대출",
+        "✅ 경기청년 역량강화 기회지원",
+        "✅ 직업훈련 생계비대부사업",
+        "✅ 강동구 미취업 청년 어학 및 자격시험 응시료 지원"
+      ]
+    },
+    {
+      "id": "R04",
+      "query": "마음이 너무 힘들어서 상담 받아 보고 싶어요",
+      "score": 1.0,
+      "why": "심리 상담",
+      "top": [
+        "✅ (복지부) 26년 정신건강 심리상담 바우처사업",
+        "✅ 2026 마음건강상담소 참여자 모집(1차 접수마감)",
+        "✅ 마음-이음(열린상담) 프로그램",
+        "✅ 2026 마음건강상담소 2차 참여자 모집 (접수 마감)",
+        "✅ 2025년 전국민마음투자지원사업"
+      ]
+    },
+    {
+      "id": "R05",
+      "query": "창업 준비 중이라 사무실이 필요해요",
+      "score": 1.0,
+      "why": "창업 공간 (창업 자금만 주는 건 정답 아님)",
+      "top": [
+        "✅ 부산진구 청년창조발전소 공유오피스 창업공간 지원 사업",
+        "✅ 2026 곡성군 청년창업 공유사무실 입주자 모집",
+        "✅ 순천시 공유오피스멤버십 운영",
+        "✅ 『광주청년창업지원센터』입주스타트업(20기) 모집",
+        "✅ 대학창업보육센터 운영지원"
+      ]
+    },
+    {
+      "id": "R06",
+      "query": "곧 결혼하는데 전세 보증금이 걱정이에요",
+      "score": 1.0,
+      "why": "신혼 주거",
+      "top": [
+        "✅ 신혼부부 전용 전세자금",
+        "✅ 전세보증금반환보증 보증료 지원",
+        "✅ 전세보증금반환보증 보증료 지원사업",
+        "✅ 신혼부부 임차보증금 이자지원",
+        "✅ 전세보증금 반환보증 보증료 지원사업"
+      ]
+    },
+    {
+      "id": "R07",
+      "query": "빚이 많아서 너무 힘들어요",
+      "score": 0.8,
+      "why": "채무 지원 (우울증 치료비 등은 정답 아님)",
+      "top": [
+        "✅ 청년 학자금 대출 부실채무자 신용회복 지원",
+        "✅ 경기도 학자금대출 장기연체 신용회복 지원",
+        "✅ 청년 부실채무자 신용회복 지원",
+        "❌ 청년 우울증 치료비 지원 추가 모집 공고",
+        "✅ 청년 특례 채무조정"
+      ]
+    },
+    {
+      "id": "R08",
+      "query": "문화생활 하고 싶은데 돈이 없어요",
+      "score": 1.0,
+      "why": "문화 지원",
+      "top": [
+        "✅ 청년 문화시설 관람비 지원",
+        "✅ 청년 문화예술패스 지원",
+        "✅ 청년 문화복지카드 지원",
+        "✅ 부산 청년만원플러스문화패스",
+        "✅ 청년문화예술패스"
+      ]
+    },
+    {
+      "id": "R09",
+      "query": "알바하는데 생활비 지원 받을 수 있어요?",
+      "score": 1.0,
+      "why": "알바 '일자리 모집'이 아니라 생활 지원을 찾는지",
+      "top": [
+        "✅ (광양시)대학생 생활비 장학금 지원",
+        "✅ 직업훈련 생계비대부사업",
+        "✅ 청년 취업자 주거비 지원사업",
+        "✅ 청년 취업자 주거비 지원",
+        "✅ 청년 취업자 주거비(시)"
+      ]
+    },
+    {
+      "id": "R10",
+      "query": "알바 돼요?",
+      "score": null,
+      "why": "조교님 예시: 의도가 애매한 질문 → 점수 없이 결과만 보고 판단",
+      "top": [
+        "대학생 아르바이트 추진",
+        "대학생 아르바이트(하반기)",
+        "서귀포시 대학생·청년 아르바이트 사업",
+        "대학생 아르바이트 운영",
+        "청년아르바이트 운영"
+      ]
+    }
+  ],
+  "understand": [
+    {
+      "id": "U01",
+      "message": "휴학 중이고 알바하는데 월세가 부담돼요",
+      "why": "휴학생, 알바, 주거",
+      "expected": {
+        "education": "university_enrolled",
+        "job_status": "etc",
+        "categories": "주거"
+      },
+      "got": {
+        "job_status": "etc",
+        "education": "university_enrolled",
+        "marital_status": null,
+        "categories": [
+          "주거",
+          "일자리"
+        ],
+        "keywords": [
+          "월세",
+          "아르바이트"
+        ],
+        "summary": "휴학 중인 대학생, 알바, 월세 부담"
+      },
+      "checks": {
+        "education": true,
+        "job_status": true,
+        "categories": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U02",
+      "message": "졸업하고 취업 준비 중인데 학원비가 부담돼요",
+      "why": "구직, 교육비 ('졸업'만으로는 고졸인지 대졸인지 모르므로 학력은 비워야 정답)",
+      "expected": {
+        "education": null,
+        "job_status": "unemployed",
+        "categories": "교육"
+      },
+      "got": {
+        "job_status": "unemployed",
+        "education": null,
+        "marital_status": null,
+        "categories": [
+          "일자리",
+          "교육"
+        ],
+        "keywords": [
+          "취업",
+          "교육비"
+        ],
+        "summary": "졸업 후 취업 준비 중, 학원비 부담"
+      },
+      "checks": {
+        "education": true,
+        "job_status": true,
+        "categories": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U03",
+      "message": "회사 다니는데 곧 결혼해서 전세집을 구해야 해요",
+      "why": "재직, 예비 신혼(아직 미혼), 주거",
+      "expected": {
+        "job_status": "employed",
+        "marital_status": "single",
+        "categories": "주거"
+      },
+      "got": {
+        "job_status": "employed",
+        "education": null,
+        "marital_status": "single",
+        "categories": [
+          "주거"
+        ],
+        "keywords": [
+          "전세"
+        ],
+        "summary": "직장인, 결혼 예정, 전세 구함"
+      },
+      "checks": {
+        "job_status": true,
+        "marital_status": true,
+        "categories": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U04",
+      "message": "작년에 결혼했고 지금은 일을 쉬고 있어요",
+      "why": "기혼, 미취업",
+      "expected": {
+        "marital_status": "married",
+        "job_status": "unemployed"
+      },
+      "got": {
+        "job_status": "unemployed",
+        "education": null,
+        "marital_status": "married",
+        "categories": [],
+        "keywords": [
+          "구직",
+          "결혼"
+        ],
+        "summary": "결혼했고 일 쉬는 중"
+      },
+      "checks": {
+        "marital_status": true,
+        "job_status": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U05",
+      "message": "카페 창업을 준비하고 있어요",
+      "why": "예비 창업",
+      "expected": {
+        "job_status": "startup",
+        "categories": "일자리"
+      },
+      "got": {
+        "job_status": "startup",
+        "education": null,
+        "marital_status": null,
+        "categories": [
+          "일자리"
+        ],
+        "keywords": [
+          "창업",
+          "카페창업"
+        ],
+        "summary": "카페 창업 준비 중인 예비창업자"
+      },
+      "checks": {
+        "job_status": true,
+        "categories": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U06",
+      "message": "고등학교 졸업하고 바로 공장에서 일하고 있어요",
+      "why": "고졸, 재직",
+      "expected": {
+        "education": "high_school",
+        "job_status": "employed"
+      },
+      "got": {
+        "job_status": "employed",
+        "education": "high_school",
+        "marital_status": null,
+        "categories": [],
+        "keywords": [
+          "고졸",
+          "취업"
+        ],
+        "summary": "고졸 후 공장 재직 중"
+      },
+      "checks": {
+        "education": true,
+        "job_status": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U07",
+      "message": "빚이 많아서 너무 힘들어요",
+      "why": "채무 → 금융 분야",
+      "expected": {
+        "categories": "금융·복지·문화"
+      },
+      "got": {
+        "job_status": null,
+        "education": null,
+        "marital_status": null,
+        "categories": [
+          "금융·복지·문화"
+        ],
+        "keywords": [
+          "채무"
+        ],
+        "summary": "많은 빚으로 힘든 상황"
+      },
+      "checks": {
+        "categories": true
+      },
+      "ok": true
+    },
+    {
+      "id": "U08",
+      "message": "월세 지원 알려줘",
+      "why": "문장에 없는 정보를 지어내지 않는지",
+      "expected": {
+        "job_status": null,
+        "education": null
+      },
+      "got": {
+        "job_status": null,
+        "education": null,
+        "marital_status": null,
+        "categories": [
+          "주거"
+        ],
+        "keywords": [
+          "월세"
+        ],
+        "summary": "월세 지원 문의"
+      },
+      "checks": {
+        "job_status": true,
+        "education": true
+      },
+      "ok": true
+    }
+  ]
+}
